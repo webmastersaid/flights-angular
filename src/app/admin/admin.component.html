@@ -1,0 +1,40 @@
+<div class="admin_panel">
+    <h1>Add a Flight</h1>
+    <input type="text" [(ngModel)]="origin" placeholder="origin">
+    <input type="text" [(ngModel)]="destination" placeholder="destination">
+    <input type="number" [(ngModel)]="flightNumber" placeholder="flight number">
+    <label for="depart">depart:</label>  
+    <input type="date" [(ngModel)]="depart" id="depart"> 
+    <label for="arrive">arrive:</label>
+    <input type="date" [(ngModel)]="arrive" id="arrive">
+    <label for="nonstop">nonstop:</label>
+    <input type="checkbox" [(ngModel)]="nonstop" id="nonstop" (click)="toggleNonStop()">
+    <button type="button" (click)="sendFlight()">create</button>
+</div>
+<div class="notice-panel" *ngIf="loading">
+    LOADING FLIGHTS, PLEASE WAIT
+</div>
+<div class="editPanel">
+    <table class="flightTable">
+        <tr>
+            <td>origin</td>
+            <td>destination</td>
+            <td>flight #</td>
+            <td>depart</td>
+            <td>arrive</td>
+            <td>nonstop</td>
+            <td>update</td>
+            <td>delete</td>
+        </tr>
+        <tr *ngFor="let flight of flightList; let i=index">
+            <td><input type="text" [(ngModel)]='flight.origin' placeholder="origin"></td>
+            <td><input type="text" [(ngModel)]='flight.destination' placeholder="destination"></td>
+            <td><input type="number" [(ngModel)]='flight.flightNumber' placeholder="flight number"></td>
+            <td>{{flight.depart | date : 'shortDate'}}</td>
+            <td>{{flight.arrive | date : 'shortDate'}}</td>
+            <td>{{flight.nonstop}}</td>
+            <td><button type="button" class="update" (click)="update(flight)">update</button></td>
+            <td><button type="button" class="delete" (click)="delete(flight)">delete</button></td>
+        </tr>
+    </table>
+</div>
